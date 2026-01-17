@@ -1,0 +1,12 @@
+<!-- Dashboard Template: dashboard.html -->
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h2 class="text-center">Dashboard</h2>
+<div class="row text-center">
+    <div class="col-md-3"><div class="card p-3 bg-primary text-white">Total Guests: {{ total_guests }}</div></div>
+    <div class="col-md-3"><div class="card p-3 bg-success text-white">Total Reservations: {{ total_reservations }}</div></div>
+    <div class="col-md-3"><div class="card p-3 bg-danger text-white">Occupied Rooms: {{ occupied_rooms }}</div></div>
+    <div class="col-md-3"><div class="card p-3 bg-warning text-dark">Available Rooms: {{ available_rooms }}</div></div>
+</div>
+{% endblock %}

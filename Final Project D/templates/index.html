@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Hotel Management - Guests{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Guest List</h2>
+
+    <!-- Add Guest Form -->
+    <form action="{{ url_for('add_guest') }}" method="POST" class="mb-4">
+        <div class="form-group">
+            <label for="guest_name">Guest Name:</label>
+            <input type="text" id="guest_name" name="name" class="form-control" placeholder="Enter Name" required>
+        </div>
+        <div class="form-group">
+            <label for="guest_phone">Phone Number:</label>
+            <input type="text" id="guest_phone" name="phone" class="form-control" placeholder="Enter Phone Number" required>
+        </div>
+        <div class="form-group">
+            <label for="guest_email">Email:</label>
+            <input type="email" id="guest_email" name="email" class="form-control" placeholder="Enter Email" required>
+        </div>
+        <button type="submit" class="btn btn-success">Add Guest</button>
+    </form>
+
+    <!-- Guest List Table -->
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for guest in guests %}
+            <tr>
+                <td>{{ guest.id }}</td>
+                <td>{{ guest.name }}</td>
+                <td>{{ guest.phone }}</td>
+                <td>{{ guest.email }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

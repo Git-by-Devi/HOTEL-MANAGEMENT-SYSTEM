@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Recommended Rooms{% endblock %}
+{% block content %}
+
+<h2>Recommended Rooms</h2>
+
+<form method="GET" action="{{ url_for('recommend_rooms') }}" class="mb-3">
+    <label for="room_type">Select Room Type:</label>
+    <select name="room_type" id="room_type" class="form-select form-select-sm w-auto d-inline">
+        <option value="Single">Single</option>
+        <option value="Double">Double</option>
+        <option value="Suite">Suite</option>
+    </select>
+    <button type="submit" class="btn btn-info btn-sm">Show Recommendations</button>
+</form>
+
+<div class="row">
+    {% for room in recommended_rooms %}
+    <div class="col-md-4">
+        <div class="card p-3 mb-3">
+            <h4>Room {{ room.room_number }}</h4>
+            <p>Type: {{ room.room_type }}</p>
+            <p>Price: ₹{{ room.price }}</p>
+            <a href="/add_reservation?room_id={{ room.id }}" class="btn btn-primary btn-sm">Book Now</a>
+        </div>
+    </div>
+
+    {% else %}
+    <p>No recommended rooms found.</p>
+    {% endfor %}
+</div>
+
+{% endblock %}

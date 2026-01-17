@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+    <h2>Edit Reservation</h2>
+    
+    <form method="POST">
+        <label>Check-In Date:</label>
+        <input type="date" name="check_in" value="{{ reservation.check_in }}" required>
+        
+        <label>Check-Out Date:</label>
+        <input type="date" name="check_out" value="{{ reservation.check_out }}" required>
+        
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a href="{{ url_for('reservations') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Room Service{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Room Service</h2>
+
+    <!-- Add Room Service Form -->
+    <div class="card p-4 shadow-sm mb-4">
+        <h4 class="mb-3">Add Room Service</h4>
+        <form action="/add_service" method="POST">
+            <div class="form-group">
+                <label for="reservation_id">Select Reservation:</label>
+                <select name="reservation_id" class="form-control" required>
+                    <option value="">Choose a Guest & Room</option>
+                    {% for res in reservations %}
+                    <option value="{{ res.id }}">{{ res.guest.name }} - Room {{ res.room.room_number }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="item">Service/Food Item:</label>
+                <input type="text" name="item" class="form-control" placeholder="Enter Item Name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="price">Price (₹):</label>
+                <input type="number" name="price" class="form-control" placeholder="Enter Price" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add Service</button>
+        </form>
+    </div>
+
+    <!-- Ordered Room Services Table -->
+    <div class="card p-4 shadow-sm">
+        <h4 class="mb-3">Ordered Services</h4>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Guest</th>
+                        <th>Room</th>
+                        <th>Item</th>
+                        <th>Price (₹)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for service in services %}
+                    <tr>
+                        <td>{{ service.id }}</td>
+                        <td>{{ service.reservation.guest.name }}</td>
+                        <td>{{ service.reservation.room.room_number }}</td>
+                        <td>{{ service.item }}</td>
+                        <td>₹{{ service.price }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

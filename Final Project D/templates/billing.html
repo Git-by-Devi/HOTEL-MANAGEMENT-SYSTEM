@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}Billing{% endblock %}
+
+{% block content %}
+<h2 class="mb-4">Room Stay Bills</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Billing ID</th>
+            <th>Guest Name</th>
+            <th>Reservation ID</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for bill in bills if bill.category == "Room Stay" %}
+            <tr>
+                <td>{{ bill.id }}</td>
+                <td>{{ bill.guest_name }}</td>
+                <td>{{ bill.reservation_id }}</td>
+                <td>₹{{ bill.amount }}</td>
+                <td class="{{ 'text-success' if bill.status == 'Paid' else 'text-warning' }}">
+                    {{ bill.status }}
+                </td>
+                <td>
+                    {% if bill.status == "Pending" %}
+                        <a href="{{ url_for('pay_bill', bill_id=bill.id) }}" class="btn btn-success btn-sm">Pay</a>
+                    {% else %}
+                        <span class="text-muted">Paid</span>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h2 class="mb-4">Room Service Bills</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Billing ID</th>
+            <th>Guest Name</th>
+            <th>Reservation ID</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for bill in bills if bill.category == "Room Service" %}
+            <tr>
+                <td>{{ bill.id }}</td>
+                <td>{{ bill.guest_name }}</td>
+                <td>{{ bill.reservation_id }}</td>
+                <td>₹{{ bill.amount }}</td>
+                <td class="{{ 'text-success' if bill.status == 'Paid' else 'text-warning' }}">
+                    {{ bill.status }}
+                </td>
+                <td>
+                    {% if bill.status == "Pending" %}
+                        <a href="{{ url_for('pay_bill', bill_id=bill.id) }}" class="btn btn-success btn-sm">Pay</a>
+                    {% else %}
+                        <span class="text-muted">Paid</span>
+                    {% endif %}
+
+                    {% for reservation in reservations %}
+                    
+                    {% if reservation.payment_status == 'Paid' %}
+                        <a href="{{ url_for('generate_receipt', reservation_id=reservation.id) }}" class="btn btn-success">
+                            Download Receipt
+                        </a>
+                    {% endif %}
+                {% endfor %}
+                
+
+
+
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+    </div>
+{% endblock %}
